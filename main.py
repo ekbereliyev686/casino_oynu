@@ -83,15 +83,18 @@ while True:
                 db.commit()
                 break
     elif choise=="3":
-        delete=input("Silmek isdediyiniz istifadecini girin")
-        sql.execute("SELECT * FROM casino ")
-        for i in sql.fetchall():
-            if delete in i:
-                sql.execute(f"DELETE FROM casino WHERE login = '{delete}' ")
-                db.commit()
-                print("Ugurla silindi")
-            else:
-                print("Bele istifadeci yoxdur")
+        delete=input("Silmek isdediyiniz istifadecini girin: ")
+        b=sql.execute("SELECT login FROM casino ")
+        b=''.join(map(str,b.fetchone()))
+
+        if delete == b:
+            sql.execute(f"DELETE FROM casino WHERE login = '{delete}' ")
+            db.commit()
+            print("Ugurla silindi")
+            break
+        else:
+            print("Bele istifadeci yoxdur")
+            break
 
     elif choise=="4":
         b=sql.execute("SELECT cash FROM casino ")
